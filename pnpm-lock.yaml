@@ -1,4 +1,4 @@
----
+...
 lockfileVersion: '9.0'
 
 importers:
@@ -196,7 +196,7 @@ snapshots:
 
   pnpm@11.5.1: {}
 
----
+...
 lockfileVersion: '9.0'
 
 settings:
