@@ -207,6 +207,9 @@ importers:
 
   .:
     dependencies:
+      body-parser:
+        specifier: ^2.3.0
+        version: 2.3.0
       cors:
         specifier: ^2.8.6
         version: 2.8.6
