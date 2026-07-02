@@ -1,12 +1,24 @@
-const authMiddleware = (req,res,next) => {
-    const token  = req.headers.authorization
+import jwt from 'jsonwebtoken';
 
-    if (token !== JWT_SECRET){
-        return res.status(401).json({ message: 'No autorizado'})
+const authMiddleware = (req, res, next) => {
+    // Obtenemos el token del encabezado 'Authorization'
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader) {
+        return res.status(401).json({ message: 'No se proporcionó token' });
     }
 
-    next()
-    
-}
+    // El token suele venir como "Bearer <token>"
+    const token = authHeader.split(' ')[1];
 
-export default  authMiddleware
+    try {
+        // Verificamos el token usando tu secreto (debe estar en el .env)
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = decoded; // Guardamos los datos del usuario en la petición
+        next();
+    } catch (error) {
+        return res.status(403).json({ message: 'Token inválido o expirado' });
+    }
+};
+
+export default authMiddleware;
