@@ -7,7 +7,7 @@ import User from '../Models/user.model.js'
 export const getUser = async(req,res) => {
     try{
         const user = await User.find()
-        res.json(users)
+        res.json(user)
     } catch (error){
         res.status(500).json({menssage: error.menssage})
     }
@@ -32,12 +32,12 @@ export const updateUser = async (req,res) => {
     const {name,email} = req.body
 
     try{
-        const updateUser = await User.findByIdandUpdate(
+        const updateUser = await User.findByIdAndUpdate(
             id,
             {name,email},
             {new: true}
         ); 
-        if(!updaetUser){
+        if(!updateUser){
             return res.status(400).json({ message: 'usuario no registrado'}) 
         }
         res.json(updateUser)
@@ -53,7 +53,7 @@ export const deleteUser = async (req,res) => {
     const {id } = req.params
 
     try{
-        const deleteUser = await User.findByIdanDelete(id)
+        const deleteUser = await User.findByIdAndDelete(id)
 
         if (!deleteUser){
             return res.status(400).json({message: 'usuario no encontrado'})
