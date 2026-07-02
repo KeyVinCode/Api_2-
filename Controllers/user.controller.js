@@ -1,10 +1,10 @@
-const { json } = require("body-parser")
+import { json } from"body-parser"
+import User from '../Models/user.model.js'
 
-const User = require('../Models/user.model.js')
 
 //! obtener todo los usuarios 
 
-const getUser = async(req,res) => {
+export const getUser = async(req,res) => {
     try{
         const user = await User.find()
         res.json(users)
@@ -15,7 +15,7 @@ const getUser = async(req,res) => {
 
 // ! Crear un nuevo ususrio 
 
-const createUser = async (rea,res) => {
+export const createUser = async (rea,res) => {
     const {name,email} = req.body
     try{
         const newUser  = new User ({name,email})
@@ -27,7 +27,7 @@ const createUser = async (rea,res) => {
 }
 // ! Actualizar un usuario exitente 
 
-const updateUser = async (req,res) => {
+export const updateUser = async (req,res) => {
     const {id} = req.params
     const {name,email} = req.body
 
@@ -49,7 +49,7 @@ const updateUser = async (req,res) => {
 
 //! Eliminar un ususario 
 
-const deleteUser = async (req,res) => {
+export const deleteUser = async (req,res) => {
     const {id } = req.params
 
     try{
@@ -67,7 +67,7 @@ const deleteUser = async (req,res) => {
 }
 
 
-module.exports = {
+export default  {
     getUser,
     createUser,
     updateUser,

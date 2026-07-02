@@ -17,7 +17,7 @@
       "onFail": "download"
     }
   },
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
     "body-parser": "^2.3.0",
     "cors": "^2.8.6",
