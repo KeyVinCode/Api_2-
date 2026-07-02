@@ -54,16 +54,24 @@ export const getUser = async(req,res) => {
 
 // ! Crear un nuevo ususrio 
 
-export const createUser = async (req,res) => {
-    const {name,email} = req.body
-    try{
-        const newUser  = new User ({name,email})
-        await newUser.save()
-        res.status(201).json(newUser)
-    }catch (error){
-        res.status(400).json({message: error.message})
+export const createUser = async (req, res) => {
+    const { name, email, password } = req.body;
+    
+    // Validar que la contraseña exista
+    if (!password) {
+        return res.status(400).json({ message: "La contraseña es obligatoria" });
     }
-}
+
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        const newUser = new User({ name, email, password: hashedPassword });
+        await newUser.save();
+        res.status(201).json(newUser);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
 // ! Actualizar un usuario exitente 
 
 export const updateUser = async (req,res) => {
@@ -110,6 +118,8 @@ export default  {
     getUser,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    login,
+    register
 }
 

@@ -1,20 +1,24 @@
-import express  from 'express'
-const router = express.Router()
+import express from "express";
 import {
-    getUser,
-    createUser,
-    updateUser,
-    deleteUser,
-    login,
-    register
-} from '../Controllers/user.controller.js'
-import userController from "../Controllers/user.controller.js"; // Correcto
+  getUser,
+  createUser,
+  updateUser,
+  deleteUser,
+  login,
+  register,
+} from "../Controllers/user.controller.js";
+import authMiddleware from "../Middleware/auth.middleware.js"; // Asegúrate de que la ruta sea correcta
 
-router.get('/',getUser)
-router.post('/',createUser)
-router.put('/:id',updateUser)
-router.delete('/:id',deleteUser)
-router.post('/register', register);
-router.post('/login', login);
+const router = express.Router();
 
-export default router
+// Rutas públicas
+router.post("/register", register);
+router.post("/login", login);
+
+// Rutas protegidas (requieren token)
+router.get("/", authMiddleware, getUser);
+router.post('/', authMiddleware, createUser);
+router.put("/:id", authMiddleware, updateUser);
+router.delete("/:id", authMiddleware, deleteUser);
+
+export default router;
