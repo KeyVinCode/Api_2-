@@ -11,6 +11,6 @@ import userController from "../Controllers/user.controller.js"; // Correcto
 router.get('/',getUser)
 router.post('/',createUser)
 router.put('/:id',updateUser)
-router.delete('/:id',updateUser)
+router.delete('/:id',deleteUser)
 
 export default router

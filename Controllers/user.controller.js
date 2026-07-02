@@ -15,7 +15,7 @@ export const getUser = async(req,res) => {
 
 // ! Crear un nuevo ususrio 
 
-export const createUser = async (rea,res) => {
+export const createUser = async (req,res) => {
     const {name,email} = req.body
     try{
         const newUser  = new User ({name,email})

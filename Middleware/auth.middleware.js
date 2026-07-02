@@ -1,5 +1,5 @@
 const authMiddleware = (req,res,next) => {
-    const token  =req.headers.authorization
+    const token  = req.headers.authorization
 
     if (token !== JWT_SECRET){
         return res.status(401).json({ message: 'No autorizado'})
@@ -9,4 +9,4 @@ const authMiddleware = (req,res,next) => {
     
 }
 
-module.exports = authMiddleware
+export default  authMiddleware
